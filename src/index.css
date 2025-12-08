@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+@theme {
+  --color-gold-50: #fdfbf7;
+  --color-gold-100: #faf6ed;
+  --color-gold-200: #f5edd3;
+  --color-gold-300: #efe3b9;
+  --color-gold-400: #e5d085;
+  --color-gold-500: #d4af37;
+  --color-gold-600: #bf9d32;
+  --color-gold-700: #9f832a;
+  --color-gold-800: #806922;
+  --color-gold-900: #69571c;
+  
+  --color-platinum-50: #f8f9fa;
+  --color-platinum-100: #f1f3f5;
+  --color-platinum-200: #e9ecef;
+  --color-platinum-300: #dee2e6;
+  --color-platinum-400: #ced4da;
+  --color-platinum-500: #adb5bd;
+  --color-platinum-600: #868e96;
+  --color-platinum-700: #495057;
+  --color-platinum-800: #343a40;
+  --color-platinum-900: #212529;
+}
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-4 py-2 bg-gold-500 text-white rounded-lg hover:bg-gold-600 transition-colors font-medium;
+  }
+  
+  .btn-secondary {
+    @apply px-4 py-2 bg-platinum-500 text-white rounded-lg hover:bg-platinum-600 transition-colors font-medium;
+  }
+  
+  .card {
+    @apply bg-white rounded-lg shadow-md p-6;
+  }
+  
+  .input-field {
+    @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold-500 focus:border-transparent outline-none transition-all;
+  }
+}
