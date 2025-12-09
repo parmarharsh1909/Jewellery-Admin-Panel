@@ -82,8 +82,8 @@ const menuConfig = [
     icon: ShoppingBag,
     label: "Orders",
     subItems: [
-      { path: "/orders/mens", label: "Men's", icon: User },
-      { path: "/orders/womens", label: "Women's", icon: UserCheck },
+      { path: "/orders/manageorder", label: "Manage orders", icon: User },
+      // { path: "/orders/womens", label: "Women's", icon: UserCheck },
     ],
   },
   {

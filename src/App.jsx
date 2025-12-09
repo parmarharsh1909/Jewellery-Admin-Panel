@@ -17,8 +17,9 @@ import AddWomensProduct from './modules/products/AddWomensProduct';
 import ManageWomensProducts from './modules/products/ManageWomensProducts';
 import ViewProduct from './modules/products/ViewProduct';
 import EditProduct from './modules/products/EditProduct';
-import MensOrders from './modules/orders/MensOrders';
-import WomensOrders from './modules/orders/WomensOrders';
+// import MensOrders from './modules/orders/MensOrders';
+import Orders from './modules/orders/Orders'; 
+// import WomensOrders from './modules/orders/WomensOrders';
 import Customers from './modules/customers/Customers';
 import Payments from './modules/payments/Payments';
 import Settings from './modules/settings/Settings';
@@ -55,8 +56,9 @@ function App() {
           <Route path="products/mens/manage" element={<ManageMensProducts />} />
           <Route path="products/womens/add" element={<AddWomensProduct />} />
           <Route path="products/womens/manage" element={<ManageWomensProducts />} />
-          <Route path="orders/mens" element={<MensOrders />} />
-          <Route path="orders/womens" element={<WomensOrders />} />
+          {/* <Route path="orders/mens" element={<MensOrders />} /> */}
+          {/* <Route path="orders/womens" element={<WomensOrders />} /> */}
+          <Route path="/orders/manageorder" element={<Orders/>} />
           <Route path="customers/manage" element={<Customers />} />
           <Route path="payments" element={<Payments />} />
           <Route path="settings" element={<Settings />} />
