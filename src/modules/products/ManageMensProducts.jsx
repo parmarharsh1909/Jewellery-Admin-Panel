@@ -80,23 +80,22 @@ export default function ManageMensProducts() {
             <thead>
               <tr className="border-b border-gray-200">
                 <th className="py-3 px-4 text-left font-semibold text-gray-700">
-                  Product
+                  Products name
                 </th>
                 <th className="py-3 px-4 text-left font-semibold text-gray-700">
-                  Category
+                  Products Description
+                </th>
+                <th className="py-3 px-4 text-left font-semibold text-gray-700">
+                  Sub Category
                 </th>
                 <th className="py-3 px-4 text-left font-semibold text-gray-700">
                   Price
                 </th>
+
                 <th className="py-3 px-4 text-left font-semibold text-gray-700">
-                  Stock
+                  Purity
                 </th>
-                <th className="py-3 px-4 text-left font-semibold text-gray-700">
-                  Status
-                </th>
-                <th className="py-3 px-4 text-left font-semibold text-gray-700">
-                  Created
-                </th>
+              
                 <th className="py-3 px-4 text-right font-semibold text-gray-700">
                   Actions
                 </th>
@@ -122,22 +121,20 @@ export default function ManageMensProducts() {
                     {/* Product + Image */}
                     <td className="py-4 px-4">
                       <div className="flex items-center gap-3">
-                        {/* <img
-                          src={product.main_image}
-                          alt="product"
-                          className="w-10 h-10 rounded-lg object-cover border"
-                        /> */}
                         <div>
                           <div className="font-medium text-gray-900">
                             {product.product_name}
                           </div>
+
                           <div className="text-sm text-gray-600">
                             {product.sub_category_name}
                           </div>
                         </div>
                       </div>
                     </td>
-
+                    <td className="py-4 px-4 text-gray-700">
+                      {product.description}
+                    </td>
                     {/* Category */}
                     <td className="py-4 px-4 text-gray-700">
                       {product.subcategory_name}
@@ -149,10 +146,12 @@ export default function ManageMensProducts() {
                     </td>
 
                     {/* Stock */}
-                    <td className="py-4 px-4 text-gray-700">{product.stock}</td>
+                    <td className="py-4 px-4 text-gray-700">
+                      {product.purity}
+                    </td>
 
                     {/* Status */}
-                    <td className="py-4 px-4">
+                    {/* <td className="py-4 px-4">
                       <span
                         className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(
                           product.status
@@ -160,12 +159,12 @@ export default function ManageMensProducts() {
                       >
                         {product.status}
                       </span>
-                    </td>
+                    </td> */}
 
                     {/* Created At */}
-                    <td className="py-4 px-4 text-gray-600">
-                      {product.created_at}
-                    </td>
+                    {/* <td className="py-4 px-4 text-gray-600">
+                      {product.maincategory_name}
+                    </td> */}
 
                     {/* Actions */}
                     <td className="py-4 px-4">
