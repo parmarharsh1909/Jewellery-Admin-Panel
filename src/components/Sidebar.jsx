@@ -33,7 +33,7 @@ const menuConfig = [
     icon: LayoutDashboard,
     label: "Dashboard",
   },
-  
+
   {
     icon: Gem,
     label: "Category",
@@ -174,7 +174,7 @@ export default function Sidebar() {
       const menuKey = generateMenuKey(item, index, parentKey);
       const isOpen = openMenus[menuKey];
       const Icon = item.icon;
-      const SubIcon = item.subItems ? (item.subItems[0]?.icon || null) : null;
+      const SubIcon = item.subItems ? item.subItems[0]?.icon || null : null;
 
       // Leaf node (no subItems)
       if (!item.subItems) {
@@ -195,8 +195,14 @@ export default function Sidebar() {
             `}
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            {item.icon ? <item.icon size={16} className="flex-shrink-0" /> : Icon && <Icon size={16} className="flex-shrink-0" />}
-            <span className="font-normal truncate ml-2.5 text-sm">{item.label}</span>
+            {item.icon ? (
+              <item.icon size={16} className="flex-shrink-0" />
+            ) : (
+              Icon && <Icon size={16} className="flex-shrink-0" />
+            )}
+            <span className="font-normal truncate ml-2.5 text-sm">
+              {item.label}
+            </span>
           </Link>
         );
       }
@@ -219,7 +225,9 @@ export default function Sidebar() {
           >
             <div className="flex items-center">
               {Icon && <Icon size={16} className="flex-shrink-0" />}
-              <span className="font-normal truncate ml-2.5 text-xs">{item.label.split(' ')[0]}</span>
+              <span className="font-normal truncate ml-2.5 text-xs">
+                {item.label.split(" ")[0]}
+              </span>
             </div>
             <span
               className={`transform transition-transform duration-300 ${

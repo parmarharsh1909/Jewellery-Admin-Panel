@@ -37,7 +37,6 @@ export default function users() {
       })
       .catch((err) => console.log("API ERROR:", err));
   }, []);
-
   return (
     <div className="p-6 space-y-6">
       <div>
@@ -51,9 +50,7 @@ export default function users() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="card">
           <p className="text-sm text-gray-600 mb-1">Total users</p>
-          <h3 className="text-2xl font-bold text-gray-900">
-            {users.length}
-          </h3>
+          <h3 className="text-2xl font-bold text-gray-900">{users.length}</h3>
         </div>
         <div className="card">
           <p className="text-sm text-gray-600 mb-1">Active users</p>
@@ -64,10 +61,7 @@ export default function users() {
         <div className="card">
           <p className="text-sm text-gray-600 mb-1">Total Revenue</p>
           <h3 className="text-2xl font-bold text-gray-900">
-            ₹
-            {users
-              .reduce((sum, c) => sum + c.totalSpent, 0)
-              .toLocaleString()}
+            ₹{users.reduce((sum, c) => sum + c.totalSpent, 0).toLocaleString()}
           </h3>
         </div>
       </div>
@@ -156,9 +150,7 @@ export default function users() {
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="text-sm text-gray-900">
-                      {users.phone}
-                    </span>
+                    <span className="text-sm text-gray-900">{users.phone}</span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className="text-sm font-semibold text-gray-900">
