@@ -135,10 +135,3 @@ The admin panel is fully responsive and works on:
 4. Push to the branch
 5. Open a pull request
 
-## License
-
-This project is proprietary software for jewelry store administration.
-
-## Support
-
-For support, contact the development team or check the documentation.
