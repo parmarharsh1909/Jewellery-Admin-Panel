@@ -4,7 +4,7 @@ import Modal from "../../components/Modal";
 import axios from "axios";
 import { useEffect } from "react";
 
-export default function users() {
+export default function UsersManage() {
   const [users, setusers] = useState(initialusers);
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [viewinguser, setViewinguser] = useState(null);
@@ -28,7 +28,7 @@ export default function users() {
   // Fetch Users from API
   useEffect(() => {
     axios
-      .get("http://localhost/Jewellerydb/users.php")
+      .get("http://localhost/Jewellerydb/Users.php")
       .then((response) => {
         if (response.status === 200) {
           const apiData = response.data.data || [];
@@ -40,7 +40,7 @@ export default function users() {
   return (
     <div className="p-6 space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">users</h1>
+        <h1 className="text-3xl font-bold text-gray-900">Users</h1>
         <p className="text-gray-600 mt-1">
           Manage user accounts and information
         </p>
@@ -208,12 +208,12 @@ export default function users() {
                   </h2>
                   <span
                     className={`px-3 py-1 text-sm font-medium rounded-full ${
-                      viewingCustomer.status === "active"
+                      viewingUsers.status === "active"
                         ? "bg-green-100 text-green-800"
                         : "bg-gray-100 text-gray-800"
                     }`}
                   >
-                    {viewingCustomer.status}
+                    {viewinguser.status}
                   </span>
                 </div>
               </div>
@@ -223,45 +223,45 @@ export default function users() {
                   <h3 className="text-sm font-medium text-gray-500 mb-1">
                     Email
                   </h3>
-                  <p className="text-gray-900">{viewingCustomer.email}</p>
+                  <p className="text-gray-900">{viewinguser.email}</p>
                 </div>
                 <div>
                   <h3 className="text-sm font-medium text-gray-500 mb-1">
                     Phone
                   </h3>
-                  <p className="text-gray-900">{viewingCustomer.phone}</p>
+                  <p className="text-gray-900">{viewinguser.phone}</p>
                 </div>
                 <div className="col-span-2">
                   <h3 className="text-sm font-medium text-gray-500 mb-1">
                     Address
                   </h3>
-                  <p className="text-gray-900">{viewingCustomer.address}</p>
+                  <p className="text-gray-900">{viewinguser.address}</p>
                 </div>
                 <div>
                   <h3 className="text-sm font-medium text-gray-500 mb-1">
                     Total Orders
                   </h3>
-                  <p className="text-gray-900">{viewingCustomer.totalOrders}</p>
+                  <p className="text-gray-900">{viewinguser.totalOrders}</p>
                 </div>
                 <div>
                   <h3 className="text-sm font-medium text-gray-500 mb-1">
                     Total Spent
                   </h3>
                   <p className="text-gray-900">
-                    ₹{viewingCustomer.totalSpent.toLocaleString()}
+                    ₹{viewinguser.totalSpent.toLocaleString()}
                   </p>
                 </div>
                 <div>
                   <h3 className="text-sm font-medium text-gray-500 mb-1">
                     Wishlist Items
                   </h3>
-                  <p className="text-gray-900">{viewingCustomer.wishlist}</p>
+                  <p className="text-gray-900">{viewinguser.wishlist}</p>
                 </div>
                 <div>
                   <h3 className="text-sm font-medium text-gray-500 mb-1">
                     Member Since
                   </h3>
-                  <p className="text-gray-900">{viewingCustomer.joinDate}</p>
+                  <p className="text-gray-900">{viewinguser.joinDate}</p>
                 </div>
               </div>
             </div>

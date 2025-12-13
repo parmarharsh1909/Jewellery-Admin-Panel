@@ -89,7 +89,7 @@ const menuConfig = [
   {
     icon: Users,
     label: "Users",
-    subItems: [{ path: "/customers/manage", label: "Manage", icon: User }],
+    subItems: [{ path: "/Users/Manage", label: "UsersManage", icon: User }],
   },
   {
     path: "/payments",
