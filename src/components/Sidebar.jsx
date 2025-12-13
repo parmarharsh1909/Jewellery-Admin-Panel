@@ -26,14 +26,13 @@ import {
 } from "lucide-react";
 import { useState, useEffect } from "react";
 
-// Menu configuration with corrected order and improved structure
+// Menu configuration
 const menuConfig = [
   {
     path: "/dashboard",
     icon: LayoutDashboard,
     label: "Dashboard",
   },
-
   {
     icon: Gem,
     label: "Category",
@@ -83,14 +82,18 @@ const menuConfig = [
     label: "Orders",
     subItems: [
       { path: "/orders/manageorder", label: "Manage orders", icon: User },
-      // { path: "/orders/womens", label: "Women's", icon: UserCheck },
     ],
   },
+
+  // ✅ FIXED: Users subItems must be an array
   {
     icon: Users,
     label: "Users",
-    subItems: [{ path: "/Users/Manage", label: "UsersManage", icon: User }],
+    subItems: [
+      { path: "users/manage", label: "Manage users", icon: Users },
+    ],
   },
+
   {
     path: "/payments",
     icon: CreditCard,
@@ -109,24 +112,20 @@ export default function Sidebar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openMenus, setOpenMenus] = useState({});
 
-  // Generate unique keys for each menu item
   const generateMenuKey = (item, index, parentKey = "") => {
     return parentKey
       ? `${parentKey}-${index}`
       : `${item.label || item.path}-${index}`;
   };
 
-  // Initialize open menus based on current location
   useEffect(() => {
     const initialOpenMenus = {};
 
-    // Recursive function to check if any menu item should be open based on current path
     const checkActiveMenus = (items, parentKey = "") => {
       items.forEach((item, index) => {
         const menuKey = generateMenuKey(item, index, parentKey);
 
         if (item.subItems) {
-          // Check if any sub-item is active
           const isSubActive = item.subItems.some((subItem) => {
             if (subItem.path && location.pathname === subItem.path) return true;
             if (subItem.subItems) {
@@ -142,7 +141,6 @@ export default function Sidebar() {
             initialOpenMenus[menuKey] = true;
           }
 
-          // Recursively check sub-items
           checkActiveMenus(item.subItems, menuKey);
         }
       });
@@ -164,19 +162,14 @@ export default function Sidebar() {
     navigate("/login");
   };
 
-  const isMenuItemActive = (path) => {
-    return location.pathname === path;
-  };
+  const isMenuItemActive = (path) => location.pathname === path;
 
-  // Recursive function to render menu items
   const renderMenuItems = (items, level = 0, parentKey = "") => {
     return items.map((item, index) => {
       const menuKey = generateMenuKey(item, index, parentKey);
       const isOpen = openMenus[menuKey];
       const Icon = item.icon;
-      const SubIcon = item.subItems ? item.subItems[0]?.icon || null : null;
 
-      // Leaf node (no subItems)
       if (!item.subItems) {
         return (
           <Link
@@ -195,11 +188,7 @@ export default function Sidebar() {
             `}
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            {item.icon ? (
-              <item.icon size={16} className="flex-shrink-0" />
-            ) : (
-              Icon && <Icon size={16} className="flex-shrink-0" />
-            )}
+            {Icon && <Icon size={16} className="flex-shrink-0" />}
             <span className="font-normal truncate ml-2.5 text-sm">
               {item.label}
             </span>
@@ -207,7 +196,6 @@ export default function Sidebar() {
         );
       }
 
-      // Parent node (has subItems)
       return (
         <div key={menuKey}>
           <button
@@ -266,7 +254,6 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* Mobile menu button */}
       <button
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         className="lg:hidden fixed top-3 left-3 z-50 p-1.5 bg-gold-500 text-white rounded-md shadow-md hover:bg-gold-600 transition-all duration-200 text-xs"
@@ -274,7 +261,6 @@ export default function Sidebar() {
         {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
       </button>
 
-      {/* Sidebar */}
       <aside
         className={`
           fixed lg:static inset-y-0 left-0 z-40
@@ -290,7 +276,6 @@ export default function Sidebar() {
         `}
       >
         <div className="flex flex-col h-full">
-          {/* Logo */}
           <div className="p-4 border-b border-gold-700 flex items-center justify-center">
             <div className="bg-gold-700 p-2 rounded-lg">
               <Gem className="w-7 h-7 text-gold-300" />
@@ -301,13 +286,10 @@ export default function Sidebar() {
             </div>
           </div>
 
-          {/* Navigation */}
           <nav className="flex-1 p-3 overflow-y-auto">
-            {/* Render all menu items recursively */}
             <div className="space-y-1">{renderMenuItems(menuConfig)}</div>
           </nav>
 
-          {/* Logout */}
           <div className="p-4 border-t border-gold-700">
             <button
               onClick={handleLogout}
@@ -321,7 +303,6 @@ export default function Sidebar() {
         </div>
       </aside>
 
-      {/* Overlay for mobile */}
       {isMobileMenuOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden"

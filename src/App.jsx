@@ -20,10 +20,12 @@ import EditProduct from "./modules/products/EditProduct";
 // import MensOrders from './modules/orders/MensOrders';
 import Orders from "./modules/orders/Orders";
 // import WomensOrders from './modules/orders/WomensOrders';
-import User from "./modules/users/user";
+import Users from "./modules/user/Users"
 import Payments from "./modules/payments/Payments";
 import Settings from "./modules/settings/Settings";
-import { Users } from "lucide-react";
+// import { User, Users as UsersIcon } from "lucide-react";
+
+
 
 function App() {
   return (
@@ -69,8 +71,8 @@ function App() {
           {/* <Route path="orders/mens" element={<MensOrders />} /> */}
           {/* <Route path="orders/womens" element={<WomensOrders />} /> */}
           <Route path="/orders/manageorder" element={<Orders />} />
-          {/* <Route path="/user/manage" element={<User />} /> */}
-          <Route path="/Users/Manage" element={<User />} />
+          <Route path="users/manage" element={<Users />} />
+          
           <Route path="payments" element={<Payments />} />
           <Route path="settings" element={<Settings />} />
           <Route path="logout" element={<Navigate to="/login" replace />} />
