@@ -10,7 +10,6 @@ export default function MensOrders() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
 
-  
   useEffect(() => {
     axios
       .get("http://localhost/Jewellerydb/orders.php")
@@ -109,20 +108,33 @@ export default function MensOrders() {
                   Order No
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Customer
+                  Product id
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Product
+                  Subcategory id
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Subcategory
+                  Customet name
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Total
+                  Customet phone
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Status
+                  Customet address
                 </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  Product name
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  Quantity
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  Price
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  Total Price
+                </th>
+
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                   Actions
                 </th>
@@ -133,13 +145,17 @@ export default function MensOrders() {
               {filteredOrders.map((order) => (
                 <tr key={order.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4">{order.order_number}</td>
+                  <td className="px-6 py-4">{order.product_id}</td>
+                  <td className="px-6 py-4">{order.sub_catid}</td>
                   <td className="px-6 py-4">{order.customer_name}</td>
+                  <td className="px-6 py-4">{order.customer_phone}</td>
+                  <td className="px-6 py-4">{order.customer_address}</td>
                   <td className="px-6 py-4">{order.product_name}</td>
-                  <td className="px-6 py-4">{order.subcategory_name}</td>
-                  <td className="px-6 py-4">
-                    ₹{order.total_price.toLocaleString()}
-                  </td>
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4">{order.quantity}</td>
+                  <td className="px-6 py-4">{order.price}</td>
+                  <td className="px-6 py-4">{order.total_price}</td>
+
+                  {/* <td className="px-6 py-4">
                     <span
                       className={`px-2 py-1 text-xs rounded-full ${getStatusColor(
                         order.status
@@ -147,7 +163,7 @@ export default function MensOrders() {
                     >
                       {order.status}
                     </span>
-                  </td>
+                  </td> */}
                   <td className="px-6 py-4">
                     <button
                       // onClick={() => viewOrder(order)}
