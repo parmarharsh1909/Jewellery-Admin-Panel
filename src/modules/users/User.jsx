@@ -4,8 +4,8 @@ import Modal from "../../components/Modal";
 import axios from "axios";
 import { useEffect } from "react";
 
-export default function UsersManage() {
-  const [users, setusers] = useState(initialusers);
+export default function User() {
+  const [users, setusers] = useState([]);
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [viewinguser, setViewinguser] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
@@ -127,8 +127,8 @@ export default function UsersManage() {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {filteredusers.map((customer) => (
-                <tr key={users.id} className="hover:bg-gray-50">
+              {filteredusers.map((user) => (
+                <tr key={user.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
                       {/* <div className="w-10 h-10 bg-gradient-to-br from-gold-400 to-gold-600 rounded-full flex items-center justify-center text-white font-bold">
@@ -149,27 +149,25 @@ export default function UsersManage() {
                       {users.Password}
                     </span>
                   </td>
+                  {/* <td className="px-6 py-4 whitespace-nowrap">
+                    <span className="text-sm text-gray-900">{users.phone}</span>
+                  </td> */}
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className="text-sm text-gray-900">{users.phone}</span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="text-sm font-semibold text-gray-900">
-                      ₹{customer.totalSpent.toLocaleString()}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
                     <span className="text-sm text-gray-900">
-                      {customer.address}
+                      {users.address}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                  {/* <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <button
                       onClick={() => viewuser(users)}
                       className="text-gold-600 hover:text-gold-900"
                     >
                       <Eye size={18} />
                     </button>
-                  </td>
+                  </td> */}
                 </tr>
               ))}
             </tbody>
@@ -196,7 +194,7 @@ export default function UsersManage() {
           title="User Details"
           size="lg"
         >
-          {viewingCustomer && (
+          {viewinguser && (
             <div className="space-y-6">
               <div className="flex items-start space-x-6">
                 <div className="w-20 h-20 bg-gradient-to-br from-gold-400 to-gold-600 rounded-full flex items-center justify-center text-white text-3xl font-bold">
@@ -204,11 +202,11 @@ export default function UsersManage() {
                 </div>
                 <div className="flex-1">
                   <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                    {viewingCustomer.name}
+                    {viewinguser.name}
                   </h2>
                   <span
                     className={`px-3 py-1 text-sm font-medium rounded-full ${
-                      viewingUsers.status === "active"
+                      viewinguser.status === "active"
                         ? "bg-green-100 text-green-800"
                         : "bg-gray-100 text-gray-800"
                     }`}
