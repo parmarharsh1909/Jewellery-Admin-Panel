@@ -5,7 +5,7 @@ import axios from "axios";
 import { useEffect } from "react";
 
 export default function users() {
-  const [users, setusers] = useState();
+  const [users, setusers] = useState(initialusers);
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [viewinguser, setViewinguser] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
@@ -16,12 +16,12 @@ export default function users() {
     setIsViewModalOpen(true);
   };
 
-  const filteredusers = users.filter((user) => { 
+  const filteredusers = users.filter((user) => {
     const matchesSearch =
       user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       user.email.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesStatus =
-      filterStatus === "all" || user.status === filterStatus;
+      filterStatus === "all" || customer.status === filterStatus;
     return matchesSearch && matchesStatus;
   });
 
