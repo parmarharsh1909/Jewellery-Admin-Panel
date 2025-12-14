@@ -21,6 +21,8 @@ import {
   Edit3,
   Eye,
   Filter,
+  MessageSquare,
+  ClipboardList,
   Tag,
   Tags,
 } from "lucide-react";
@@ -89,15 +91,27 @@ const menuConfig = [
   {
     icon: Users,
     label: "Users",
-    subItems: [
-      { path: "users/manage", label: "Manage users", icon: Users },
-    ],
+    subItems: [{ path: "users/manage", label: "Manage users", icon: Users }],
   },
-
-  {
+   {
     path: "/payments",
     icon: CreditCard,
     label: "Payments",
+  },
+  {
+    path: "/offers",
+    icon: Tag,
+    label: "Offers",
+  },
+   {
+    path: "/Feedback",
+    icon: ClipboardList,
+    label: "Feedback",
+  },
+   {
+    path: "/Inquiries",
+    icon: MessageSquare,
+    label: "Inquiries",
   },
   {
     path: "/settings",

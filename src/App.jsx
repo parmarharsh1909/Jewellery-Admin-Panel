@@ -21,8 +21,11 @@ import EditProduct from "./modules/products/EditProduct";
 import Orders from "./modules/orders/Orders";
 // import WomensOrders from './modules/orders/WomensOrders';
 import Users from "./modules/user/Users"
+import Offers from "./modules/offers/offers";
 import Payments from "./modules/payments/Payments";
+import Feedback from "./modules/feedback/Feedback";
 import Settings from "./modules/settings/Settings";
+import Inquiries from "./modules/inquiries/Inquiries";
 // import { User, Users as UsersIcon } from "lucide-react";
 
 
@@ -72,8 +75,10 @@ function App() {
           {/* <Route path="orders/womens" element={<WomensOrders />} /> */}
           <Route path="/orders/manageorder" element={<Orders />} />
           <Route path="users/manage" element={<Users />} />
-          
-          <Route path="payments" element={<Payments />} />
+           <Route path="payments" element={<Payments />} />
+          <Route path="offers" element={<Offers />} />
+          <Route path="feedback" element={<Feedback />} />
+          <Route path="Inquiries" element={<Inquiries />} />
           <Route path="settings" element={<Settings />} />
           <Route path="logout" element={<Navigate to="/login" replace />} />
         </Route>
