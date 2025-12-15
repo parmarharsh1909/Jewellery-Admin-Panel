@@ -3,11 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Upload } from 'lucide-react';
 
 const mockParentCategories = [
-  { id: 1, name: 'Rings' },
-  { id: 2, name: 'Necklaces' },
-  { id: 3, name: 'Bracelets' },
-  { id: 4, name: 'Earrings' },
-  { id: 5, name: 'Pendants' }
+  { id: 1, name: 'Mens' },
+  { id: 2, name: 'Womens' },
 ];
 
 export default function AddSubCategory() {
@@ -67,15 +64,15 @@ export default function AddSubCategory() {
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Parent Category *</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Select Main Category *</label>
               <select
-                name="parentCategory"
-                value={formData.parentCategory}
+                name="maincat_id"
+                value={formData.maincat_id}
                 onChange={handleChange}
                 className="input-field"
                 required
               >
-                <option value="">Select parent category</option>
+                <option value=""> </option>
                 {mockParentCategories.map(category => (
                   <option key={category.id} value={category.id}>{category.name}</option>
                 ))}

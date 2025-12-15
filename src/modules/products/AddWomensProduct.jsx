@@ -2,20 +2,19 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Upload, Plus, Trash2 } from 'lucide-react';
 
-const mockMainCategories = [
-  { id: 1, name: 'Rings' },
-  { id: 2, name: 'Necklaces' },
-  { id: 3, name: 'Bracelets' },
-  { id: 4, name: 'Earrings' },
-  { id: 5, name: 'Pendants' }
-];
+// const mockMainCategories = [
+//   { id: 1, name: 'Rings' },
+//   { id: 2, name: 'Necklaces' },
+//   { id: 3, name: 'Bracelets' },
+//   { id: 4, name: 'Earrings' },
+//   { id: 5, name: 'Pendants' }
+// ];
 
 const mockSubCategories = [
-  { id: 1, name: 'Engagement Rings', parentId: 1 },
-  { id: 2, name: 'Wedding Bands', parentId: 1 },
-  { id: 3, name: 'Fashion Necklaces', parentId: 2 },
-  { id: 4, name: 'Chokers', parentId: 2 },
-  { id: 5, name: 'Cuff Bracelets', parentId: 3 }
+  { id: 1, name: 'Necklaces', parentId: 2 },
+  { id: 2, name: 'Earrings', parentId: 2 },
+  { id: 3, name: 'Bangles', parentId: 2 },
+  { id: 4, name: 'Anklets', parentId: 2 },
 ];
 
 const mockMetalTypes = ['Yellow Gold', 'White Gold', 'Rose Gold', 'Platinum', 'Silver'];
@@ -123,20 +122,20 @@ export default function AddWomensProduct() {
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Weight (grams) *</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Purity (Carets) *</label>
                   <input
-                    type="number"
+                    // type="number"
                     step="0.01"
-                    name="weight"
-                    value={formData.weight}
+                    name="Purity"
+                    value={formData.purity}
                     onChange={handleChange}
                     className="input-field"
-                    placeholder="Enter weight"
+                    placeholder="Enter purity"
                     required
                   />
                 </div>
                 
-                <div>
+                {/* <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Stock Quantity *</label>
                   <input
                     type="number"
@@ -147,9 +146,9 @@ export default function AddWomensProduct() {
                     placeholder="Enter stock quantity"
                     required
                   />
-                </div>
+                </div> */}
                 
-                <div>
+                {/* <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Metal Type *</label>
                   <select
                     name="metalType"
@@ -163,9 +162,9 @@ export default function AddWomensProduct() {
                       <option key={type} value={type}>{type}</option>
                     ))}
                   </select>
-                </div>
+                </div> */}
                 
-                <div>
+                {/* <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Stone Type</label>
                   <select
                     name="stoneType"
@@ -178,9 +177,9 @@ export default function AddWomensProduct() {
                       <option key={type} value={type}>{type}</option>
                     ))}
                   </select>
-                </div>
+                </div> */}
                 
-                <div>
+                {/* <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Main Category *</label>
                   <select
                     name="mainCategory"
@@ -194,7 +193,7 @@ export default function AddWomensProduct() {
                       <option key={category.id} value={category.id}>{category.name}</option>
                     ))}
                   </select>
-                </div>
+                </div> */}
                 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Sub Category</label>
