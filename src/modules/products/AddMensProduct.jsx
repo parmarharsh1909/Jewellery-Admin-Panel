@@ -15,8 +15,8 @@ const mockSubCategories = [
 ];
 
 
-const mockMetalTypes = ['Yellow Gold', 'White Gold', 'Rose Gold', 'Platinum', 'Silver'];
-const mockStoneTypes = ['Diamond', 'Ruby', 'Sapphire', 'Emerald', 'Pearl', 'None'];
+// const mockMetalTypes = ['Yellow Gold', 'White Gold', 'Rose Gold', 'Platinum', 'Silver'];
+// const mockStoneTypes = ['Diamond', 'Ruby', 'Sapphire', 'Emerald', 'Pearl', 'None'];
 
 export default function AddMensProduct() {
   const navigate = useNavigate();

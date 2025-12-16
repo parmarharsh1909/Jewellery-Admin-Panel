@@ -43,7 +43,7 @@ const menuConfig = [
         icon: Tag,
         label: "Main Category",
         subItems: [
-          { path: "/categories/main/add", label: "Add", icon: Plus },
+          // { path: "/categories/main/add", label: "Add", icon: Plus },
           { path: "/categories/main/list", label: "Manage", icon: List },
         ],
       },
