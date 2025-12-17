@@ -88,30 +88,34 @@ const menuConfig = [
   },
 
   // ✅ FIXED: Users subItems must be an array
-  {
-    icon: Users,
-    label: "Users",
-    subItems: [{ path: "users/manage", label: "Manage users", icon: Users }],
-  },
    {
     path: "/payments",
     icon: CreditCard,
     label: "Payments",
   },
+  
   {
     path: "/offers",
     icon: Tag,
     label: "Offers",
   },
-   {
-    path: "/Feedback",
-    icon: ClipboardList,
-    label: "Feedback",
+
+  {
+    icon: Users,
+    label: "Users",
+    subItems: [{ path: "users/manage", label: "Manage users", icon: Users }],
   },
+  
    {
     path: "/Inquiries",
     icon: MessageSquare,
     label: "Inquiries",
+  },
+
+   {
+    path: "/Feedback",
+    icon: ClipboardList,
+    label: "Feedback",
   },
   {
     path: "/settings",
