@@ -83,6 +83,9 @@ export default function ManageWomensProducts() {
                 <th className="py-3 px-4 text-left font-semibold text-gray-700">
                   Purity
                 </th>
+                <th className="py-3 px-4 text-left font-semibold text-gray-700">
+                  Image
+                </th>
                 <th className="py-3 px-4 text-right font-semibold text-gray-700">
                   Actions
                 </th>
@@ -143,6 +146,16 @@ export default function ManageWomensProducts() {
                       {/* Purity */}
                       <td className="py-4 px-4 text-gray-700">
                         {product.purity}
+                      </td>
+
+                      {/* Image */}
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {/* {item.image } */}
+                        <img
+                          src={`http://localhost/Jewellerydb/Uploads/Womens/${product.image}`}
+                          alt={product.name}
+                          className="h-14 w-14 rounded object-cover border"
+                        />
                       </td>
 
                       {/* Actions */}

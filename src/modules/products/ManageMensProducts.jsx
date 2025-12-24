@@ -26,10 +26,7 @@ export default function ManageMensProducts() {
   const totalPages = Math.ceil(products.length / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentProducts = products.slice(
-    indexOfFirstItem,
-    indexOfLastItem
-  );
+  const currentProducts = products.slice(indexOfFirstItem, indexOfLastItem);
 
   /* ================= ACTIONS ================= */
   const handleView = (id) => console.log("View:", id);
@@ -83,6 +80,9 @@ export default function ManageMensProducts() {
                 <th className="py-3 px-4 text-left font-semibold text-gray-700">
                   Purity
                 </th>
+                <th className="py-3 px-4 text-left font-semibold text-gray-700">
+                  Image
+                </th>
                 <th className="py-3 px-4 text-right font-semibold text-gray-700">
                   Actions
                 </th>
@@ -101,14 +101,12 @@ export default function ManageMensProducts() {
                 </tr>
               ) : (
                 currentProducts.map((product, index) => {
-                  /* ✅ SAME SAFE KEY LOGIC */
                   const uniqueKey =
                     product.id ??
                     product.product_id ??
                     `${product.product_name}-${index}`;
 
-                  const productId =
-                    product.id ?? product.product_id;
+                  const productId = product.id ?? product.product_id;
 
                   return (
                     <tr
@@ -143,6 +141,16 @@ export default function ManageMensProducts() {
                       {/* Purity */}
                       <td className="py-4 px-4 text-gray-700">
                         {product.purity}
+                      </td>
+
+                      {/* Image */}
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {/* {item.image } */}
+                        <img
+                          src={`http://localhost/Jewellerydb/Uploads/Mens/${product.image}`}
+                          alt={product.name}
+                          className="h-14 w-14 rounded object-cover border"
+                        />
                       </td>
 
                       {/* Actions */}
@@ -183,15 +191,13 @@ export default function ManageMensProducts() {
           <div className="flex items-center justify-between mt-6">
             <p className="text-gray-600">
               Showing {indexOfFirstItem + 1} to{" "}
-              {Math.min(indexOfLastItem, products.length)} of{" "}
-              {products.length} products
+              {Math.min(indexOfLastItem, products.length)} of {products.length}{" "}
+              products
             </p>
 
             <div className="flex gap-2">
               <button
-                onClick={() =>
-                  setCurrentPage((prev) => Math.max(prev - 1, 1))
-                }
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
                 disabled={currentPage === 1}
                 className="px-3 py-1 border border-gray-300 rounded-md disabled:opacity-50"
               >
@@ -214,9 +220,7 @@ export default function ManageMensProducts() {
 
               <button
                 onClick={() =>
-                  setCurrentPage((prev) =>
-                    Math.min(prev + 1, totalPages)
-                  )
+                  setCurrentPage((prev) => Math.min(prev + 1, totalPages))
                 }
                 disabled={currentPage === totalPages}
                 className="px-3 py-1 border border-gray-300 rounded-md disabled:opacity-50"
