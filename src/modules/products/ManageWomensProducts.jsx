@@ -34,10 +34,29 @@ export default function ManageWomensProducts() {
   /* ================= ACTIONS ================= */
   const handleView = (id) => console.log("View:", id);
   const handleEdit = (id) => console.log("Edit:", id);
-  const handleDelete = (id) => {
-    if (window.confirm("Delete this product?")) {
-      console.log("Delete:", id);
-    }
+  
+   const handleDelete = (id) => {
+    if (!window.confirm("Are you sure you want to delete this Product?")) return;
+
+    const formData = new FormData();
+    formData.append("id", id);
+
+    axios
+      .post("http://localhost/Jewellerydb/deleteWomensProduct.php", formData)
+      .then((response) => {
+        const json = response.data;
+
+        if (json.status === true || json.status === "true") {
+          alert(json.message);
+
+          setProducts((prev) =>
+            prev.filter((item) => Number(item.id) !== Number(id))
+          );
+        } else {
+          alert(json.message || "Delete failed");
+        }
+      })
+      .catch(() => alert("Error deleting Product"));
   };
 
   return (

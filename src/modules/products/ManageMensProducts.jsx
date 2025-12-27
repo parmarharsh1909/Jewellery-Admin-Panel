@@ -11,7 +11,7 @@ export default function ManageMensProducts() {
   const itemsPerPage = 5;
 
   /* ================= FETCH PRODUCTS ================= */
-  useEffect(() => {
+  const fetchProducts = () => {
     axios
       .get("http://localhost/Jewellerydb/mensProduct.php")
       .then((response) => {
@@ -20,6 +20,10 @@ export default function ManageMensProducts() {
         }
       })
       .catch((err) => console.log("API ERROR:", err));
+  };
+
+  useEffect(() => {
+    fetchProducts();
   }, []);
 
   /* ================= PAGINATION ================= */
@@ -29,12 +33,36 @@ export default function ManageMensProducts() {
   const currentProducts = products.slice(indexOfFirstItem, indexOfLastItem);
 
   /* ================= ACTIONS ================= */
-  const handleView = (id) => console.log("View:", id);
-  const handleEdit = (id) => console.log("Edit:", id);
+  const handleView = (id) => {
+    console.log("View:", id);
+  };
+
+  const handleEdit = (id) => {
+    console.log("Edit:", id);
+  };
+
   const handleDelete = (id) => {
-    if (window.confirm("Delete this product?")) {
-      console.log("Delete:", id);
-    }
+    if (!window.confirm("Are you sure you want to delete this Product?")) return;
+
+    const formData = new FormData();
+    formData.append("id", id);
+
+    axios
+      .post("http://localhost/Jewellerydb/deleteMensProduct.php", formData)
+      .then((response) => {
+        const json = response.data;
+
+        if (json.status === true || json.status === "true") {
+          alert(json.message);
+
+          setProducts((prev) =>
+            prev.filter((item) => Number(item.id) !== Number(id))
+          );
+        } else {
+          alert(json.message || "Delete failed");
+        }
+      })
+      .catch(() => alert("Error deleting Product"));
   };
 
   return (
@@ -59,7 +87,7 @@ export default function ManageMensProducts() {
         </button>
       </div>
 
-      {/* ================= TABLE ================= */}
+      {/* ================= TABLE CARD ================= */}
       <div className="card">
         <div className="overflow-x-auto">
           <table className="w-full">
@@ -93,7 +121,7 @@ export default function ManageMensProducts() {
               {currentProducts.length === 0 ? (
                 <tr>
                   <td
-                    colSpan="6"
+                    colSpan="7"
                     className="py-6 text-center text-gray-500 italic"
                   >
                     No products found
@@ -101,19 +129,14 @@ export default function ManageMensProducts() {
                 </tr>
               ) : (
                 currentProducts.map((product, index) => {
-                  const uniqueKey =
-                    product.id ??
-                    product.product_id ??
-                    `${product.product_name}-${index}`;
-
-                  const productId = product.id ?? product.product_id;
+                  const productId = product.id;
 
                   return (
                     <tr
-                      key={uniqueKey}
+                      key={productId ?? index}
                       className="border-b border-gray-100 hover:bg-gray-50"
                     >
-                      {/* Product Name */}
+                      {/* Product */}
                       <td className="py-4 px-4">
                         <div className="font-medium text-gray-900">
                           {product.product_name}
@@ -144,11 +167,10 @@ export default function ManageMensProducts() {
                       </td>
 
                       {/* Image */}
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {/* {item.image } */}
+                      <td className="py-4 px-4">
                         <img
                           src={`http://localhost/Jewellerydb/Uploads/Mens/${product.image}`}
-                          alt={product.name}
+                          alt={product.product_name}
                           className="h-14 w-14 rounded object-cover border"
                         />
                       </td>
@@ -191,22 +213,21 @@ export default function ManageMensProducts() {
           <div className="flex items-center justify-between mt-6">
             <p className="text-gray-600">
               Showing {indexOfFirstItem + 1} to{" "}
-              {Math.min(indexOfLastItem, products.length)} of {products.length}{" "}
-              products
+              {Math.min(indexOfLastItem, products.length)} of {products.length}
             </p>
 
             <div className="flex gap-2">
               <button
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
                 disabled={currentPage === 1}
-                className="px-3 py-1 border border-gray-300 rounded-md disabled:opacity-50"
+                className="px-3 py-1 border rounded-md disabled:opacity-50"
               >
                 Previous
               </button>
 
               {[...Array(totalPages)].map((_, i) => (
                 <button
-                  key={i + 1}
+                  key={i}
                   onClick={() => setCurrentPage(i + 1)}
                   className={`px-3 py-1 border rounded-md ${
                     currentPage === i + 1
@@ -220,10 +241,10 @@ export default function ManageMensProducts() {
 
               <button
                 onClick={() =>
-                  setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                  setCurrentPage((p) => Math.min(p + 1, totalPages))
                 }
                 disabled={currentPage === totalPages}
-                className="px-3 py-1 border border-gray-300 rounded-md disabled:opacity-50"
+                className="px-3 py-1 border rounded-md disabled:opacity-50"
               >
                 Next
               </button>

@@ -18,13 +18,37 @@ export default function Products() {
       });
   }, []);
 
-  const handleView = (id) => console.log("View:", id);
-  const handleEdit = (id) => console.log("Edit:", id);
-  const handleDelete = (id) => {
-    if (window.confirm("Are you sure you want to delete this?")) {
-      console.log("Delete:", id);
+  // const handleView = (id) => console.log("View:", id);
+  // const handleEdit = (id) => console.log("Edit:", id);
+  // const handleDelete = (id) => {
+  //   if (window.confirm("Are you sure you want to delete this?")) {
+  //     console.log("Delete:", id);
+  //   }
+  // };
+
+  function handleDelete(id) {
+    if (!window.confirm("Are you sure you want to delete this sub category?")) {
+      return;
     }
-  };
+
+    const formData = new FormData();
+    formData.append("id", id);
+
+    axios
+      .post("http://localhost/Jewellerydb/deleteSubCategory.php", formData)
+      .then((response) => {
+        const json = response.data;
+
+        if (json.status === true || json.status === "true") {
+          alert(json.message);
+
+          setDataCat((prev) => prev.filter((item) => item.id !== id));
+        } else {
+          alert(json.message || "Delete failed");
+        }
+      })
+      .catch(() => alert("Error deleting category"));
+  }
 
   return (
     <div className="p-6 space-y-6">
@@ -104,7 +128,7 @@ export default function Products() {
                         </button>
 
                         <button
-                          // onClick={() => handleDelete(item.id)}
+                          onClick={() => handleDelete(item.id)}
                           className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                           title="Delete"
                         >

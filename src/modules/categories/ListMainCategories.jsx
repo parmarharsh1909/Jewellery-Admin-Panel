@@ -61,17 +61,17 @@ export default function ManageMainCategory() {
           </p>
         </div>
 
-        <button
+        {/* <button
           // onClick={() => navigate("/categories/main/add")}
           className="btn-primary flex items-center gap-2"
         >
           <Plus size={20} />
           Add New Main Category
-        </button>
+        </button> */}
       </div>
 
       {/* Search */}
-      <div className="card">
+      {/* <div className="card">
         <div className="flex gap-4">
           <div className="flex-1">
             <div className="relative">
@@ -89,7 +89,7 @@ export default function ManageMainCategory() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Table */}
       <div className="card">
@@ -153,12 +153,12 @@ export default function ManageMainCategory() {
                       </button>
 
                       {/* Delete */}
-                      <button
+                      {/* <button
                         // onClick={() => handleDelete(category.id)}
                         className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                       >
                         <Trash2 size={18} />
-                      </button>
+                      </button> */}
                     </div>
                   </td>
                 </tr>
