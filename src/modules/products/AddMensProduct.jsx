@@ -49,7 +49,8 @@ const AddMensProduct = () => {
       .post("http://localhost/Jewellerydb/addMenProducts.php", formdata)
       .then(() => {
         alert("Men Product Added Successfully");
-        navigate(-1);
+        // navigate(-1);
+        setTimeout(() => navigate("/products/mens/manage"), 1500);
       })
       .catch(() => alert("Error adding product"))
       .finally(() => setLoading(false));
@@ -96,8 +97,6 @@ const AddMensProduct = () => {
               <option value="1">Rings</option>
               <option value="2">Bracelets</option>
               <option value="3">Chains</option>
-              <option value="7">Pendants</option>
-              <option value="9">Kadas</option>
             </select>
 
             <textarea
@@ -132,9 +131,7 @@ const AddMensProduct = () => {
             ) : (
               <label className="flex flex-col items-center justify-center h-56 border-2 border-dashed rounded-lg cursor-pointer hover:border-yellow-500">
                 <Upload className="mb-2 text-gray-400" />
-                <p className="text-sm text-gray-500">
-                  Upload Product Image
-                </p>
+                <p className="text-sm text-gray-500">Upload Product Image</p>
                 <input
                   ref={imgRef}
                   type="file"

@@ -28,6 +28,7 @@ const AddSubCategories = () => {
       .post("http://localhost/Jewellerydb/addSubCategory.php", formdata)
       .then((Response) => {
         alert("Sub Category Added Successfully");
+        setTimeout(()=> navigate("/categories/sub/list"),1500);
       });
   };
 

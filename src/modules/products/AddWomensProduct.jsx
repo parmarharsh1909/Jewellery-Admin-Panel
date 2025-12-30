@@ -49,7 +49,8 @@ const AddWomensProduct = () => {
       .post("http://localhost/Jewellerydb/addWomenProducts.php", formdata)
       .then(() => {
         alert("Women Product Added Successfully");
-        navigate(-1);
+        // navigate(-1);
+        setTimeout(() => navigate("/products/womens/manage"), 1500);
       })
       .catch(() => alert("Error adding product"))
       .finally(() => setLoading(false));
@@ -99,8 +100,6 @@ const AddWomensProduct = () => {
               <option value="4">Necklaces</option>
               <option value="5">Earrings</option>
               <option value="6">Bangles</option>
-              <option value="8">Anklets</option>
-              <option value="10">Nose Pins</option>
             </select>
 
             <textarea

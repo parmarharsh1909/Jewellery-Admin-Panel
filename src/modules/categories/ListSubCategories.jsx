@@ -55,15 +55,15 @@ export default function Products() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Products</h1>
-          <p className="text-gray-600 mt-1">Manage your products here</p>
+          <h1 className="text-3xl font-bold text-gray-900">Sub category</h1>
+          <p className="text-gray-600 mt-1">Manage your sub category here</p>
         </div>
         <button
-          onClick={() => navigate("/products/add")}
+          onClick={() => navigate("/categories/sub/add")}
           className="btn-primary flex items-center gap-2"
         >
           <Plus size={20} />
-          Add New Product
+          Add New Sub category
         </button>
       </div>
 
