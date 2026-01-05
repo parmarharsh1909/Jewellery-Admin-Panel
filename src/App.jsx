@@ -9,26 +9,23 @@ import EditMainCategories from "./modules/categories/EditMainCategories";
 import ListSubCategories from "./modules/categories/ListSubCategories";
 import AddSubCategories from "./modules/categories/AddSubCategories";
 import EditSubCategories from "./modules/categories/EditSubCategories";
-import Products from "./modules/products/Products";
-import ManageProduct from "./modules/products/ManageProduct";
 import AddMensProduct from "./modules/products/AddMensProduct";
-import ManageMensProducts from "./modules/products/ManageMensProducts";
+import ListMensProducts from "./modules/products/ListMensProducts";
+import EditMensProduct from "./modules/products/EditMensProducts";
+import EditWomensProduct from "./modules/products/EditWomensProduct";
 import AddWomensProduct from "./modules/products/AddWomensProduct";
-import ManageWomensProducts from "./modules/products/ManageWomensProducts";
+import ListWomensProducts from "./modules/products/ListWomensProducts";
 import ViewProduct from "./modules/products/ViewProduct";
-import EditProduct from "./modules/products/EditProduct";
 // import MensOrders from './modules/orders/MensOrders';
 import Orders from "./modules/orders/Orders";
-// import WomensOrders from './modules/orders/WomensOrders';
-import Users from "./modules/user/Users"
-import Offers from "./modules/offers/offers";
+import WomensOrders from "./modules/orders/WomensOrders";
+import Users from "./modules/user/Users";
+import Offers from "./modules/offers/Offers";
 import Payments from "./modules/payments/Payments";
 import Feedback from "./modules/feedback/Feedback";
 import Settings from "./modules/settings/Settings";
 import Inquiries from "./modules/inquiries/Inquiries";
 // import { User, Users as UsersIcon } from "lucide-react";
-
-
 
 function App() {
   return (
@@ -60,25 +57,27 @@ function App() {
             path="categories/sub/edit/:id"
             element={<EditSubCategories />}
           />
-          <Route path="products" element={<Products />} />
-          <Route path="products/manage" element={<ManageProduct />} />
           <Route path="products/view/:id" element={<ViewProduct />} />
-          <Route path="products/edit/:id" element={<EditProduct />} />
+          <Route path="products/mens/edit/:id" element={<EditMensProduct />} />
+          <Route
+            path="products/womens/edit/:id"
+            element={<EditWomensProduct />}
+          />
           <Route path="products/mens/add" element={<AddMensProduct />} />
-          <Route path="products/mens/manage" element={<ManageMensProducts />} />
+          <Route path="products/mens/manage" element={<ListMensProducts />} />
           <Route path="products/womens/add" element={<AddWomensProduct />} />
           <Route
             path="products/womens/manage"
-            element={<ManageWomensProducts />}
+            element={<ListWomensProducts />}
           />
           {/* <Route path="orders/mens" element={<MensOrders />} /> */}
-          {/* <Route path="orders/womens" element={<WomensOrders />} /> */}
+          <Route path="orders/womens" element={<WomensOrders />} />
           <Route path="/orders/manageorder" element={<Orders />} />
           <Route path="users/manage" element={<Users />} />
-           <Route path="payments" element={<Payments />} />
+          <Route path="payments" element={<Payments />} />
           <Route path="offers" element={<Offers />} />
           <Route path="feedback" element={<Feedback />} />
-          <Route path="Inquiries" element={<Inquiries />} />
+          <Route path="inquiries" element={<Inquiries />} />
           <Route path="settings" element={<Settings />} />
           <Route path="logout" element={<Navigate to="/login" replace />} />
         </Route>

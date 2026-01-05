@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Edit, Trash2, Eye, Plus } from "lucide-react";
 
-export default function ManageMensProducts() {
+export default function ListMensProducts() {
   const navigate = useNavigate();
 
   const [products, setProducts] = useState([]);
@@ -42,7 +42,8 @@ export default function ManageMensProducts() {
   };
 
   const handleDelete = (id) => {
-    if (!window.confirm("Are you sure you want to delete this Product?")) return;
+    if (!window.confirm("Are you sure you want to delete this Product?"))
+      return;
 
     const formData = new FormData();
     formData.append("id", id);
@@ -71,7 +72,7 @@ export default function ManageMensProducts() {
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">
-            Manage Men's Products
+            List Men's Products
           </h1>
           <p className="text-gray-600 mt-1">
             View and manage men's collection products
@@ -94,6 +95,9 @@ export default function ManageMensProducts() {
             <thead>
               <tr className="border-b border-gray-200">
                 <th className="py-3 px-4 text-left font-semibold text-gray-700">
+                  Image
+                </th>
+                <th className="py-3 px-4 text-left font-semibold text-gray-700">
                   Product
                 </th>
                 <th className="py-3 px-4 text-left font-semibold text-gray-700">
@@ -108,9 +112,7 @@ export default function ManageMensProducts() {
                 <th className="py-3 px-4 text-left font-semibold text-gray-700">
                   Purity
                 </th>
-                <th className="py-3 px-4 text-left font-semibold text-gray-700">
-                  Image
-                </th>
+
                 <th className="py-3 px-4 text-right font-semibold text-gray-700">
                   Actions
                 </th>
@@ -136,13 +138,18 @@ export default function ManageMensProducts() {
                       key={productId ?? index}
                       className="border-b border-gray-100 hover:bg-gray-50"
                     >
+                      {/* Image */}
+                      <td className="py-4 px-4">
+                        <img
+                          src={`http://localhost/Jewellerydb/Uploads/Mens/${product.image}`}
+                          alt={product.product_name}
+                          className="h-14 w-14 rounded object-cover border"
+                        />
+                      </td>
                       {/* Product */}
                       <td className="py-4 px-4">
                         <div className="font-medium text-gray-900">
                           {product.product_name}
-                        </div>
-                        <div className="text-sm text-gray-600">
-                          {product.subcategory_name}
                         </div>
                       </td>
 
@@ -166,15 +173,6 @@ export default function ManageMensProducts() {
                         {product.purity}
                       </td>
 
-                      {/* Image */}
-                      <td className="py-4 px-4">
-                        <img
-                          src={`http://localhost/Jewellerydb/Uploads/Mens/${product.image}`}
-                          alt={product.product_name}
-                          className="h-14 w-14 rounded object-cover border"
-                        />
-                      </td>
-
                       {/* Actions */}
                       <td className="py-4 px-4">
                         <div className="flex justify-end gap-2">
@@ -185,12 +183,19 @@ export default function ManageMensProducts() {
                             <Eye size={18} />
                           </button>
 
-                          <button
+                          {/* <button
                             onClick={() => handleEdit(productId)}
                             className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg"
                           >
                             <Edit size={18} />
-                          </button>
+                          </button> */}
+
+                          <Link
+                            to={`/products/mens/edit/${productId}`}
+                            className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg"
+                          >
+                            <Edit size={18} />
+                          </Link>
 
                           <button
                             onClick={() => handleDelete(productId)}

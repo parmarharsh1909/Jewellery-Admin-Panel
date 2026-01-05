@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Eye, Edit, Trash2, Plus } from "lucide-react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Products() {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ export default function Products() {
   }, []);
 
   // const handleView = (id) => console.log("View:", id);
-  // const handleEdit = (id) => console.log("Edit:", id);
+  const handleEdit = (id) => console.log("Edit:", id);
   // const handleDelete = (id) => {
   //   if (window.confirm("Are you sure you want to delete this?")) {
   //     console.log("Delete:", id);
@@ -119,13 +119,20 @@ export default function Products() {
                           <Eye size={18} />
                         </button>
 
-                        <button
-                          // onClick={() => handleEdit(item.id)}
+                        {/* <button
+                          onClick={() => handleEdit(item.id)}
                           className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                           title="Edit"
                         >
                           <Edit size={18} />
-                        </button>
+                        </button> */}
+                        <Link
+                          to={`/categories/sub/edit/${item.id}`}
+                          className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                          title="Edit"
+                        >
+                          <Edit size={18} />
+                        </Link>
 
                         <button
                           onClick={() => handleDelete(item.id)}

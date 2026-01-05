@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { Edit, Trash2, Eye, Plus } from "lucide-react";
 
-export default function ManageWomensProducts() {
+export default function ListWomensProducts() {
   const navigate = useNavigate();
 
   const [products, setProducts] = useState([]);
@@ -33,7 +33,7 @@ export default function ManageWomensProducts() {
 
   /* ================= ACTIONS ================= */
   const handleView = (id) => console.log("View:", id);
-  const handleEdit = (id) => console.log("Edit:", id);
+  const handleEdit = (id) => navigate(`/products/womens/edit/${id}`);
   
    const handleDelete = (id) => {
     if (!window.confirm("Are you sure you want to delete this Product?")) return;
@@ -65,7 +65,7 @@ export default function ManageWomensProducts() {
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">
-            Manage Women's Products
+            List Women's Products
           </h1>
           <p className="text-gray-600 mt-1">
             View and manage women's collection products
@@ -95,7 +95,7 @@ export default function ManageWomensProducts() {
                 </th>
                 <th className="py-3 px-4 text-left font-semibold text-gray-700">
                   Sub Category
-                </th>
+                  </th>
                 <th className="py-3 px-4 text-left font-semibold text-gray-700">
                   Price
                 </th>
@@ -187,12 +187,19 @@ export default function ManageWomensProducts() {
                             <Eye size={18} />
                           </button>
 
-                          <button
-                            onClick={() => handleEdit(productId)}
+                          <Link
+                            to={`/products/womens/edit/${productId}`}
                             className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg"
                           >
                             <Edit size={18} />
-                          </button>
+                          </Link>
+
+                          {/* <Link
+                            to={`/products/edit/${productId}`}
+                            className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg"
+                          >
+                            <Edit size={18} />
+                          </Link> */}
 
                           <button
                             onClick={() => handleDelete(productId)}
