@@ -106,7 +106,7 @@ export default function Products() {
                     </td>
 
                     <td className="py-4 px-4 text-gray-700">
-                      {item.categories_id}
+                      {item.maincat_id}
                     </td>
 
                     <td className="py-4 px-4">

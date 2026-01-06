@@ -1,243 +1,182 @@
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import axios from "axios";
-import { ArrowLeft, Save, Upload } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
-export default function EditWomensProduct() {
+const EditWomensProduct = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [loading, setLoading] = useState(true);
+  const nameRef = useRef();
+  const priceRef = useRef();
+  const purityRef = useRef();
+  const subcatRef = useRef();
+  const descRef = useRef();
+  const imgRef = useRef();
 
-  const [form, setForm] = useState({
-    product_name: "",
-    description: "",
-    subcategory_name: "",
-    price: "",
-    purity: "",
-  });
+  const [oldImage, setOldImage] = useState("");
+  const [preview, setPreview] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const [imagePreview, setImagePreview] = useState(null);
-  const [imageFile, setImageFile] = useState(null);
-
-  /* ================= FETCH SINGLE PRODUCT ================= */
   useEffect(() => {
-    axios
-      .get(`http://localhost/Jewellerydb/getWomensProductById.php?id=${id}`)
-      .then((res) => {
-        const data = res.data.data;
-        if (data) {
-          setForm({
-            product_name: data.product_name,
-            description: data.description,
-            subcategory_name: data.subcategory_name,
-            price: data.price,
-            purity: data.purity,
-          });
+    const formData = new FormData();
+    formData.append("id", id);
 
-          setImagePreview(
-            `http://localhost/Jewellerydb/Uploads/Womens/${data.image}`
-          );
+    axios
+      .post("http://localhost/Jewellerydb/getWomenProduct.php", formData)
+      .then((res) => {
+        if (res.data.status === "true") {
+          const data = res.data.data;
+
+          nameRef.current.value = data.product_name;
+          priceRef.current.value = data.price;
+          purityRef.current.value = data.purity;
+          subcatRef.current.value = data.sub_catid;
+          descRef.current.value = data.description || "";
+
+          setOldImage(data.image);
         }
       })
-      .catch(() => alert("Failed to fetch product"))
-      .finally(() => setLoading(false));
+      .catch(() => alert("Failed to load product"));
   }, [id]);
-
-  /* ================= HANDLERS ================= */
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setImageFile(file);
-      setImagePreview(URL.createObjectURL(file));
+      setPreview(URL.createObjectURL(file));
     }
   };
 
-  /* ================= UPDATE ================= */
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const updateProduct = () => {
+    setLoading(true);
 
     const formData = new FormData();
     formData.append("id", id);
-    formData.append("product_name", form.product_name);
-    formData.append("description", form.description);
-    formData.append("subcategory_name", form.subcategory_name);
-    formData.append("price", form.price);
-    formData.append("purity", form.purity);
+    formData.append("product_name", nameRef.current.value.trim());
+    formData.append("price", priceRef.current.value);
+    formData.append("purity", purityRef.current.value.trim());
+    formData.append("sub_catid", subcatRef.current.value);
+    formData.append("description", descRef.current.value.trim());
 
-    if (imageFile) {
-      formData.append("image", imageFile);
+    if (imgRef.current.files[0]) {
+      formData.append("image", imgRef.current.files[0]);
     }
 
     axios
-      .post(
-        "http://localhost/Jewellerydb/updateWomensProduct.php",
-        formData
-      )
+      .post("http://localhost/Jewellerydb/updateWomenProduct.php", formData)
       .then((res) => {
-        if (res.data.status === true || res.data.status === "true") {
-          alert("Product updated successfully");
-          navigate(-1);
+        if (res.data.status === "true") {
+          alert("Product Updated Successfully");
+          navigate("/products/womens/manage");
         } else {
-          alert(res.data.message || "Update failed");
+          alert("Update Failed");
         }
       })
-      .catch(() => alert("Error updating product"));
+      .catch(() => alert("Server Error"))
+      .finally(() => setLoading(false));
   };
 
-  if (loading) {
-    return <p className="p-6 text-gray-500">Loading product...</p>;
-  }
-
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      {/* ================= HEADER ================= */}
-      <div className="flex items-center gap-3 mb-6">
-        <button
-          onClick={() => navigate(-1)}
-          className="p-2 rounded-lg border hover:bg-gray-100"
+    <div className="p-6 space-y-6">
+      {/* HEADER */}
+      <div className="flex items-center gap-3">
+        <Link
+          to="/products/mens/manage"
+          className="p-2 rounded hover:bg-gray-100"
         >
-          <ArrowLeft size={20} />
-        </button>
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">
-            Edit Women's Product
-          </h1>
-          <p className="text-gray-600 text-sm">
-            Update product details
-          </p>
-        </div>
+          <ArrowLeft />
+        </Link>
+        <h1 className="text-2xl font-bold">Edit Women's Product</h1>
       </div>
 
-      {/* ================= FORM CARD ================= */}
-      <form
-        onSubmit={handleSubmit}
-        className="card space-y-5"
-      >
-        {/* Image */}
-        <div>
-          <label className="font-medium text-gray-700">Product Image</label>
-          <div className="mt-2 flex items-center gap-4">
-            {imagePreview && (
-              <img
-                src={imagePreview}
-                alt="Preview"
-                className="h-20 w-20 rounded object-cover border"
-              />
-            )}
+      {/* FORM */}
+      <div className="bg-white rounded-xl shadow p-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* LEFT */}
+          <div className="lg:col-span-2 space-y-4">
+            <input
+              ref={nameRef}
+              className="input-field"
+              placeholder="Product Name *"
+            />
 
-            <label className="flex items-center gap-2 cursor-pointer text-blue-600">
-              <Upload size={18} />
-              Change Image
+            <div className="grid grid-cols-2 gap-4">
               <input
+                ref={priceRef}
+                type="number"
+                className="input-field"
+                placeholder="Price *"
+              />
+              <input
+                ref={purityRef}
+                className="input-field"
+                placeholder="Purity *"
+              />
+            </div>
+
+            <select ref={subcatRef} className="input-field">
+              <option value="">Select Sub Category *</option>
+              <option value="4">Necklaces</option>
+              <option value="5">Earrings</option>
+              <option value="6">Bangles</option>
+            </select>
+
+            <textarea
+              ref={descRef}
+              rows="4"
+              className="input-field"
+              placeholder="Description"
+            />
+          </div>
+
+          {/* RIGHT */}
+          <div>
+            <h3 className="font-semibold mb-2">Product Image</h3>
+
+            <div className="border-2 border-dashed rounded-lg p-2">
+              <img
+                src={
+                  preview
+                    ? preview
+                    : oldImage
+                    ? `http://localhost/Jewellerydb/uploads/womens/${oldImage}`
+                    : ""
+                }
+                alt="Product"
+                className="w-full h-56 object-cover rounded"
+              />
+
+              <input
+                ref={imgRef}
                 type="file"
-                className="hidden"
                 accept="image/*"
                 onChange={handleImageChange}
+                className="mt-2"
               />
-            </label>
+            </div>
           </div>
         </div>
 
-        {/* Product Name */}
-        <div>
-          <label className="font-medium text-gray-700">
-            Product Name
-          </label>
-          <input
-            type="text"
-            name="product_name"
-            value={form.product_name}
-            onChange={handleChange}
-            className="input mt-1"
-            required
-          />
-        </div>
-
-        {/* Description */}
-        <div>
-          <label className="font-medium text-gray-700">
-            Description
-          </label>
-          <textarea
-            name="description"
-            value={form.description}
-            onChange={handleChange}
-            rows="3"
-            className="input mt-1"
-            required
-          />
-        </div>
-
-        {/* Sub Category */}
-        <div>
-          <label className="font-medium text-gray-700">
-            Sub Category
-          </label>
-          <input
-            type="text"
-            name="subcategory_name"
-            value={form.subcategory_name}
-            onChange={handleChange}
-            className="input mt-1"
-            required
-          />
-        </div>
-
-        {/* Price & Purity */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="font-medium text-gray-700">
-              Price
-            </label>
-            <input
-              type="number"
-              name="price"
-              value={form.price}
-              onChange={handleChange}
-              className="input mt-1"
-              required
-            />
-          </div>
-
-          <div>
-            <label className="font-medium text-gray-700">
-              Purity
-            </label>
-            <input
-              type="text"
-              name="purity"
-              value={form.purity}
-              onChange={handleChange}
-              className="input mt-1"
-              required
-            />
-          </div>
-        </div>
-
-        {/* Actions */}
-        <div className="flex justify-end gap-3 pt-4">
+        {/* ACTIONS */}
+        <div className="flex gap-4 mt-6">
           <button
-            type="button"
+            onClick={updateProduct}
+            disabled={loading}
+            className="btn-primary px-6 py-2"
+          >
+            {loading ? "Updating..." : "Update"}
+          </button>
+
+          <button
             onClick={() => navigate(-1)}
-            className="px-4 py-2 border rounded-lg"
+            className="btn-secondary px-6 py-2"
           >
             Cancel
           </button>
-
-          <button
-            type="submit"
-            className="btn-primary flex items-center gap-2"
-          >
-            <Save size={18} />
-            Update Product
-          </button>
         </div>
-      </form>
+      </div>
     </div>
   );
-}
+};
+
+export default EditWomensProduct;

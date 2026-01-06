@@ -13,7 +13,7 @@ const EditSubCategories = () => {
     description: "",
   });
 
-  // Handle input change
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -22,13 +22,13 @@ const EditSubCategories = () => {
     }));
   };
 
-  // Fetch sub-category data
+
   useEffect(() => {
-    var formData = new FormData();
-    formData.append("id", id);
+    const fd = new FormData(); 
+    fd.append("id", id);
 
     axios
-      .post("http://localhost/Jewellerydb/getSubCategory.php", formData)
+      .post("http://localhost/Jewellerydb/getSubCategory.php", fd)
       .then((res) => {
         if (res.data.status === "true") {
           setFormData({
@@ -43,11 +43,12 @@ const EditSubCategories = () => {
 
   // Update sub-category
   const updateSubCategory = () => {
-    const formData = new FormData();
-    formData.append("id", id);
-    formData.append("name", formData.name);
-    formData.append("maincat_id", formData.maincat_id);
-    formData.append("description", formData.description);
+    const fd = new FormData(); 
+    fd.append("id", id);
+    fd.append("name", formData.name);
+    fd.append("maincat_id", formData.maincat_id);
+    fd.append("description", formData.description);
+
     axios
       .post("http://localhost/Jewellerydb/updateSubCategory.php", fd)
       .then((res) => {
