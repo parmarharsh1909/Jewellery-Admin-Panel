@@ -176,12 +176,12 @@ export default function ListMensProducts() {
                       {/* Actions */}
                       <td className="py-4 px-4">
                         <div className="flex justify-end gap-2">
-                          <button
+                          {/* <button
                             onClick={() => handleView(productId)}
                             className="p-2 text-yellow-600 hover:bg-yellow-50 rounded-lg"
                           >
                             <Eye size={18} />
-                          </button>
+                          </button> */}
 
                           {/* <button
                             onClick={() => handleEdit(productId)}

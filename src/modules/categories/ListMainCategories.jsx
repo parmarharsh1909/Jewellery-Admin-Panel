@@ -106,9 +106,9 @@ export default function ManageMainCategory() {
                 <th className="text-left py-3 px-4 font-semibold text-gray-700">
                   Description
                 </th>
-                <th className="text-right py-3 px-4 font-semibold text-gray-700">
+                {/* <th className="text-right py-3 px-4 font-semibold text-gray-700">
                   Actions
-                </th>
+                </th> */}
               </tr>
             </thead>
 
@@ -133,34 +133,34 @@ export default function ManageMainCategory() {
                     {category.maincatdesc}
                   </td>
 
-                  {/* Actions */}
+                  {/* Actions
                   <td className="py-4 px-4">
                     <div className="flex justify-end gap-2">
-                      {/* View */}
+                      View
                       <button
-                        // onClick={() => handleView(category.id)}
+                        onClick={() => handleView(category.id)}
                         className="p-2 text-gold-600 hover:bg-gold-50 rounded-lg transition-colors"
                       >
                         <Eye size={18} />
                       </button>
 
-                      {/* Edit */}
+                      Edit
                       <button
-                        // onClick={() => handleEdit(category.id)}
+                        onClick={() => handleEdit(category.id)}
                         className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                       >
                         <Edit size={18} />
                       </button>
 
-                      {/* Delete */}
-                      {/* <button
-                        // onClick={() => handleDelete(category.id)}
+                      Delete
+                      <button
+                        onClick={() => handleDelete(category.id)}
                         className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                       >
                         <Trash2 size={18} />
-                      </button> */}
+                      </button>
                     </div>
-                  </td>
+                  </td> */}
                 </tr>
               ))}
             </tbody>

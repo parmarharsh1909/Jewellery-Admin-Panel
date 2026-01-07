@@ -111,13 +111,13 @@ export default function Products() {
 
                     <td className="py-4 px-4">
                       <div className="flex justify-end gap-2">
-                        <button
+                        {/* <button
                           // onClick={() => handleView(item.id)}
                           className="p-2 text-gold-600 hover:bg-gold-50 rounded-lg transition-colors"
                           title="View"
                         >
                           <Eye size={18} />
-                        </button>
+                        </button> */}
 
                         {/* <button
                           onClick={() => handleEdit(item.id)}
