@@ -5,7 +5,6 @@ import { Edit, Trash2, Eye, Plus } from "lucide-react";
 
 export default function ListWomensProducts() {
   const navigate = useNavigate();
-
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
@@ -57,7 +56,7 @@ export default function ListWomensProducts() {
           alert(json.message);
 
           setProducts((prev) =>
-            prev.filter((item) => Number(item.id) !== Number(id))
+            prev.filter((item) => Number(item.id) !== Number(id)),
           );
         } else {
           alert(json.message || "Delete failed");
@@ -102,6 +101,9 @@ export default function ListWomensProducts() {
                 </th>
                 <th className="py-3 px-4 text-left font-semibold text-gray-700">
                   Description
+                </th>
+                <th className="py-3 px-4 text-left font-semibold text-gray-700">
+                  Offers
                 </th>
                 <th className="py-3 px-4 text-left font-semibold text-gray-700">
                   Sub Category
@@ -156,6 +158,11 @@ export default function ListWomensProducts() {
                       {/* Description */}
                       <td className="py-4 px-4 text-gray-700">
                         {product.description}
+                      </td>
+
+                      {/* Offer */}
+                      <td className="py-4 px-4 text-gray-700">
+                        {product.offer_id || "-"}
                       </td>
 
                       {/* Sub Category */}

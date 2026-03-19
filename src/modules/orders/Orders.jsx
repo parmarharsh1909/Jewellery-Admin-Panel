@@ -12,7 +12,7 @@ export default function MensOrders() {
 
   useEffect(() => {
     axios
-      .get("http://localhost/Jewellerydb/orders.php")
+      .get("http://localhost/Jewellerydb/getorders.php")
       .then((response) => {
         if (response.status === 200) {
           const apiData = response.data.data || [];
@@ -28,17 +28,39 @@ export default function MensOrders() {
   };
 
   const filteredOrders = orders.filter((order) => {
+    const orderNumber = order.order_number?.toString().toLowerCase() || "";
+    const customerName = order.customer_name?.toLowerCase() || "";
+    const status = order.status?.toLowerCase() || "";
+
     const matchesSearch =
-      order.order_number.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      order.customer.toLowerCase().includes(searchTerm.toLowerCase());
+      orderNumber.includes(searchTerm.toLowerCase()) ||
+      customerName.includes(searchTerm.toLowerCase());
 
     const matchesStatus =
-      filterStatus === "all" ||
-      order.status.toLowerCase() === filterStatus.toLowerCase();
+      filterStatus === "all" || status === filterStatus.toLowerCase();
 
     return matchesSearch && matchesStatus;
   });
+  const handleStatusChange = (orderId, newStatus) => {
+    const formData = new FormData();
+    formData.append("order_id", orderId);
+    formData.append("order_status", newStatus);
 
+    axios
+      .post("http://localhost/Jewellerydb/updateOrderStatus.php", formData)
+      .then((response) => {
+        if (response.data.status) {
+          setOrders((prevOrders) =>
+            prevOrders.map((order) =>
+              order.order_id === orderId
+                ? { ...order, order_status: newStatus }
+                : order,
+            ),
+          );
+        }
+      })
+      .catch((err) => console.log("UPDATE ERROR:", err));
+  };
   const getStatusColor = (status) => {
     switch (status) {
       case "Completed":
@@ -91,8 +113,8 @@ export default function MensOrders() {
               <option value="all">All Status</option>
               <option value="Pending">Pending</option>
               <option value="Processing">Processing</option>
-              <option value="Completed">Completed</option>
-              <option value="Cancelled">Cancelled</option>
+              <option value="Dispatched">Dispatched</option>
+              <option value="Delivered">Delivered</option>
             </select>
           </div>
         </div>
@@ -108,22 +130,10 @@ export default function MensOrders() {
                   Order No
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  User id
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                   Product id
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Subcategory id
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Customet name
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Customet phone
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Customet address
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Product name
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                   Quantity
@@ -134,44 +144,57 @@ export default function MensOrders() {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                   Total Price
                 </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  Order Status
+                </th>
 
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Actions
+                  Payment status
                 </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  Payment Id
+                </th>
+                {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  Shipping address
+                </th> */}
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  Order date
+                </th>
+                {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  Actions
+                </th> */}
               </tr>
             </thead>
 
             <tbody className="bg-white divide-y divide-gray-200">
               {filteredOrders.map((order) => (
                 <tr key={order.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4">{order.order_number}</td>
+                  <td className="px-6 py-4">{order.order_id}</td>
+                  <td className="px-6 py-4">{order.user_id}</td>
                   <td className="px-6 py-4">{order.product_id}</td>
-                  <td className="px-6 py-4">{order.sub_catid}</td>
-                  <td className="px-6 py-4">{order.customer_name}</td>
-                  <td className="px-6 py-4">{order.customer_phone}</td>
-                  <td className="px-6 py-4">{order.customer_address}</td>
-                  <td className="px-6 py-4">{order.product_name}</td>
                   <td className="px-6 py-4">{order.quantity}</td>
                   <td className="px-6 py-4">{order.price}</td>
                   <td className="px-6 py-4">{order.total_price}</td>
-
-                  {/* <td className="px-6 py-4">
-                    <span
-                      className={`px-2 py-1 text-xs rounded-full ${getStatusColor(
-                        order.status
-                      )}`}
+                  <td>
+                    <select
+                      name="order_status"
+                      id="order_status"
+                      value={order.order_status}
+                      onChange={(e) =>
+                        handleStatusChange(order.order_id, e.target.value)
+                      }
                     >
-                      {order.status}
-                    </span>
-                  </td> */}
-                  <td className="px-6 py-4">
-                    <button
-                      // onClick={() => viewOrder(order)}
-                      className="text-gold-600 hover:text-gold-900"
-                    >
-                      <Eye size={18} />
-                    </button>
+                      <option value="Pending">Pending</option>
+                      <option value="Processing">Processing</option>
+                      <option value="Dispatched">Dispatched</option>
+                      <option value="Delivered">Delivered</option>
+                      <option value="Cancelled">Cancelled</option>
+                    </select>
                   </td>
+                  <td className="px-6 py-4">{order.payment_status}</td>
+                  <td className="px-6 py-4">{order.payment_id}</td>
+                  {/* <td className="px-6 py-4">{order.shipping_address}</td> */}
+                  <td className="px-6 py-4">{order.order_date}</td>
                 </tr>
               ))}
             </tbody>

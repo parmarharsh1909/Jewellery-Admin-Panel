@@ -57,7 +57,7 @@ export default function ListMensProducts() {
           alert(json.message);
 
           setProducts((prev) =>
-            prev.filter((item) => Number(item.id) !== Number(id))
+            prev.filter((item) => Number(item.id) !== Number(id)),
           );
         } else {
           alert(json.message || "Delete failed");
@@ -102,6 +102,9 @@ export default function ListMensProducts() {
                 </th>
                 <th className="py-3 px-4 text-left font-semibold text-gray-700">
                   Description
+                </th>
+                <th className="py-3 px-4 text-left font-semibold text-gray-700">
+                  Offers
                 </th>
                 <th className="py-3 px-4 text-left font-semibold text-gray-700">
                   Sub Category
@@ -156,6 +159,11 @@ export default function ListMensProducts() {
                       {/* Description */}
                       <td className="py-4 px-4 text-gray-700">
                         {product.description}
+                      </td>
+
+                      {/* Offer */}
+                      <td className="py-4 px-4 text-gray-700">
+                        {product.offer_id || "-"}
                       </td>
 
                       {/* Sub Category */}

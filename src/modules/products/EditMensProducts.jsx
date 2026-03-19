@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { use, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { ArrowLeft } from "lucide-react";
@@ -11,8 +11,10 @@ const EditMensProducts = () => {
   const priceRef = useRef();
   const purityRef = useRef();
   const subcatRef = useRef();
+  const offerRef = useRef();
   const descRef = useRef();
   const imgRef = useRef();
+  const [offers, setOffers] = useState([]);
 
   const [oldImage, setOldImage] = useState("");
   const [preview, setPreview] = useState(null);
@@ -32,6 +34,7 @@ const EditMensProducts = () => {
           priceRef.current.value = data.price;
           purityRef.current.value = data.purity;
           subcatRef.current.value = data.sub_catid;
+          offerRef.current.value = data.offer_id || "";
           descRef.current.value = data.description || "";
 
           setOldImage(data.image);
@@ -57,6 +60,8 @@ const EditMensProducts = () => {
     formData.append("purity", purityRef.current.value.trim());
     formData.append("sub_catid", subcatRef.current.value);
     formData.append("description", descRef.current.value.trim());
+    formData.append("offer_id", offerRef.current.value);
+    formData.append("offer_id", offerRef.current.value);
 
     if (imgRef.current.files[0]) {
       formData.append("image", imgRef.current.files[0]);
@@ -65,7 +70,7 @@ const EditMensProducts = () => {
     axios
       .post("http://localhost/Jewellerydb/updateMenProduct.php", formData)
       .then((res) => {
-        if (res.data.status === "true") {
+        if (res.data.status === true) {
           alert("Product Updated Successfully");
           navigate("/products/mens/manage");
         } else {
@@ -75,7 +80,16 @@ const EditMensProducts = () => {
       .catch(() => alert("Server Error"))
       .finally(() => setLoading(false));
   };
-
+  useEffect(() => {
+    axios
+      .get("http://localhost/Jewellerydb/fetchoffers.php")    
+      .then((response) => {
+        if (response.status === 200) {
+          setOffers(response.data.data || []);
+        }
+      })
+      .catch((err) => console.log("API ERROR:", err));
+  }, []);
   return (
     <div className="p-6 space-y-6">
       {/* HEADER */}
@@ -121,6 +135,16 @@ const EditMensProducts = () => {
               <option value="3">Chains</option>
             </select>
 
+            <label className="block text-sm font-medium">Choose an Offer</label>
+            <select ref={offerRef} className="input-field">
+              <option value="">No Offer</option>
+              {offers.map((offer) => (
+                <option key={offer.offer_id} value={offer.offer_id}>
+                  {offer.offername}
+                </option>
+              ))}
+            </select>
+
             <textarea
               ref={descRef}
               rows="4"
@@ -139,8 +163,8 @@ const EditMensProducts = () => {
                   preview
                     ? preview
                     : oldImage
-                    ? `http://localhost/Jewellerydb/uploads/mens/${oldImage}`
-                    : ""
+                      ? `http://localhost/Jewellerydb/uploads/mens/${oldImage}`
+                      : ""
                 }
                 alt="Product"
                 className="w-full h-56 object-cover rounded"

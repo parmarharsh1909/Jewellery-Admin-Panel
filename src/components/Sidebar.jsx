@@ -23,6 +23,7 @@ import {
   Filter,
   MessageSquare,
   ClipboardList,
+  Headset,
   Tag,
   Tags,
 } from "lucide-react";
@@ -95,9 +96,14 @@ const menuConfig = [
   },
   
   {
-    path: "/offers",
+    path: "",
     icon: Tag,
     label: "Offers",
+    hasSubItems: true,
+    subItems: [
+      { path: "/addoffer", label: "Add Offer", icon: Plus },
+      { path: "/offers", label: "Manage Offers", icon: List },
+    ],
   },
 
   {
@@ -117,6 +123,13 @@ const menuConfig = [
     icon: ClipboardList,
     label: "Feedback",
   },
+    
+   {
+    path: "/HelpCenter",
+    icon: Headset,
+    label: "Help Center",
+  },
+
   {
     path: "/settings",
     icon: Settings,

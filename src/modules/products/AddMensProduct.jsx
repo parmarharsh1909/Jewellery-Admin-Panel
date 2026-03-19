@@ -1,7 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ArrowLeft, Upload, X } from "lucide-react";
+import { set } from "zod";
 
 const AddMensProduct = () => {
   const navigate = useNavigate();
@@ -14,6 +15,8 @@ const AddMensProduct = () => {
   const descRef = useRef();
   const subCatRef = useRef();
   const imgRef = useRef();
+  const offerRef = useRef();
+  const [offers, setOffers] = useState([]);
 
   const handleImageChange = () => {
     const file = imgRef.current.files[0];
@@ -29,6 +32,7 @@ const AddMensProduct = () => {
     const Purity = purityRef.current.value.trim();
     const Description = descRef.current.value.trim();
     const SubCatId = subCatRef.current.value;
+    const OfferId = offerRef.current.value;
 
     if (!ProductName || !Price || !Purity || !SubCatId) {
       alert("Please fill all required fields");
@@ -44,6 +48,7 @@ const AddMensProduct = () => {
     formdata.append("Description", Description);
     formdata.append("SubCatId", SubCatId);
     formdata.append("ProductImg", imageFile);
+    formdata.append("OfferId", OfferId);
 
     axios
       .post("http://localhost/Jewellerydb/addMenProducts.php", formdata)
@@ -55,7 +60,16 @@ const AddMensProduct = () => {
       .catch(() => alert("Error adding product"))
       .finally(() => setLoading(false));
   };
-
+  useEffect(() => {
+    axios
+      .get("http://localhost/Jewellerydb/fetchoffers.php")
+      .then((response) => {
+        if (response.status === 200) {
+          setOffers(response.data.data || []);
+        }
+      })
+      .catch((err) => console.log("API ERROR:", err));
+  }, []);
   return (
     <div className="p-6 space-y-6">
       {/* HEADER */}
@@ -99,6 +113,17 @@ const AddMensProduct = () => {
               <option value="3">Chains</option>
             </select>
 
+            <label className="block text-sm font-medium text-gray-700">
+              Choose an Offer
+            </label>
+            <select ref={offerRef} className="input-field">
+              <option value="">No Offer</option>
+              {offers.map((offer) => (
+                <option key={offer.offer_id} value={offer.offer_id}>
+                  {offer.offername}
+                </option>
+              ))}
+            </select>
             <textarea
               ref={descRef}
               rows="4"

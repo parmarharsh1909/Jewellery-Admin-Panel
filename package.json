@@ -17,10 +17,12 @@
     "vite": "^7.2.4"
   },
   "dependencies": {
+    "@coreui/react-chartjs": "^3.0.0",
     "@hookform/resolvers": "^5.2.2",
     "@tailwindcss/postcss": "^4.1.17",
     "axios": "^1.13.2",
     "bootstrap": "^5.3.8",
+    "chart.js": "^4.5.1",
     "lucide-react": "^0.555.0",
     "react": "^19.2.0",
     "react-bootstrap": "^2.10.10",
