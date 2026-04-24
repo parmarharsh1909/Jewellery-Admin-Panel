@@ -118,11 +118,11 @@ const menuConfig = [
     label: "Inquiries",
   },
 
-   {
-    path: "/Feedback",
-    icon: ClipboardList,
-    label: "Feedback",
-  },
+  //  {
+  //   path: "/Feedback",
+  //   icon: ClipboardList,
+  //   label: "Feedback",
+  // },
     
    {
     path: "/HelpCenter",
