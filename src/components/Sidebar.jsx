@@ -112,11 +112,11 @@ const menuConfig = [
     subItems: [{ path: "users/manage", label: "Manage users", icon: Users }],
   },
   
-   {
-    path: "/Inquiries",
-    icon: MessageSquare,
-    label: "Inquiries",
-  },
+  //  {
+  //   path: "/Inquiries",
+  //   icon: MessageSquare,
+  //   label: "Inquiries",
+  // },
 
   //  {
   //   path: "/Feedback",

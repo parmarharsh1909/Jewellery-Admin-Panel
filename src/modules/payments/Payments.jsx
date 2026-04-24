@@ -7,7 +7,7 @@ export default function Payments() {
 
   useEffect(() => {
     axios
-      .get("http://localhost/Jewellerydb/payments.php")
+      .get("http://localhost/Jewellerydb/payment.php")
       .then((response) => {
         if (response.status === 200) {
           setPayments(response.data.data || []);
